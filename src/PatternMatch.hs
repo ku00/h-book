@@ -51,49 +51,49 @@ firstLetter all@(x:xs) = "The first letter of " ++ all ++ " is " ++ [x]
 
 bmiTell :: Double -> String
 bmiTell bmi
-  | bmi <= 18.5 = "You're underweight, you emo, you!"
-  | bmi <= 25.0 = "You're supposedly normal. Pffft, I bet you're ugly!"
-  | bmi <= 30.0 = "You're fat! Lose some weight, fatty!"
-  | otherwise   = "You're whale, congratulations!"
+    | bmi <= 18.5 = "You're underweight, you emo, you!"
+    | bmi <= 25.0 = "You're supposedly normal. Pffft, I bet you're ugly!"
+    | bmi <= 30.0 = "You're fat! Lose some weight, fatty!"
+    | otherwise   = "You're whale, congratulations!"
 
 bmiTell' :: Double -> Double -> String
 bmiTell' weight height
-  | weight / height ^ 2 <= 18.5 = "You're underweight, you emo, you!"
-  | weight / height ^ 2 <= 25.0 = "You're supposedly normal. Pffft, I bet you're ugly!"
-  | weight / height ^ 2 <= 30.0 = "You're fat! Lose some weight, fatty!"
-  | otherwise                   = "You're whale, congratulations!"
+    | weight / height ^ 2 <= 18.5 = "You're underweight, you emo, you!"
+    | weight / height ^ 2 <= 25.0 = "You're supposedly normal. Pffft, I bet you're ugly!"
+    | weight / height ^ 2 <= 30.0 = "You're fat! Lose some weight, fatty!"
+    | otherwise                   = "You're whale, congratulations!"
 
 max' :: (Ord a) => a -> a -> a
 max' a b
-  | a <= b    = b
-  | otherwise = a
+    | a <= b    = b
+    | otherwise = a
 
 myCompare :: (Ord a) => a -> a -> Ordering
 a `myCompare` b
-  | a == b    = EQ
-  | a <= b    = LT
-  | otherwise = GT
+    | a == b    = EQ
+    | a <= b    = LT
+    | otherwise = GT
 
 -- 3.3 where?!
 
 bmiTell'' :: Double -> Double -> String
 bmiTell'' weight height
-  | bmi <= 18.5 = "You're underweight, you emo, you!"
-  | bmi <= 25.0 = "You're supposedly normal. Pffft, I bet you're ugly!"
-  | bmi <= 30.0 = "You're fat! Lose some weight, fatty!"
-  | otherwise   = "You're whale, congratulations!"
-  where bmi = weight / height ^ 2
+    | bmi <= 18.5 = "You're underweight, you emo, you!"
+    | bmi <= 25.0 = "You're supposedly normal. Pffft, I bet you're ugly!"
+    | bmi <= 30.0 = "You're fat! Lose some weight, fatty!"
+    | otherwise   = "You're whale, congratulations!"
+    where bmi = weight / height ^ 2
 
 bmiTell''' :: Double -> Double -> String
 bmiTell''' weight height
-  | bmi <= skinny = "You're underweight, you emo, you!"
-  | bmi <= normal = "You're supposedly normal. Pffft, I bet you're ugly!"
-  | bmi <= fat    = "You're fat! Lose some weight, fatty!"
-  | otherwise     = "You're whale, congratulations!"
-  where bmi = weight / height ^ 2
-        skinny = 18.5
-        normal = 25.0
-        fat = 30.0
+    | bmi <= skinny = "You're underweight, you emo, you!"
+    | bmi <= normal = "You're supposedly normal. Pffft, I bet you're ugly!"
+    | bmi <= fat    = "You're fat! Lose some weight, fatty!"
+    | otherwise     = "You're whale, congratulations!"
+    where bmi = weight / height ^ 2
+          skinny = 18.5
+          normal = 25.0
+          fat = 30.0
 
 badGreeting :: String
 badGreeting = "Oh! Pfft. It's you."
@@ -107,20 +107,20 @@ greet name = badGreeting ++ " " ++ name
 
 initials :: String -> String -> String
 initials firstname lastname = [f] ++ ". " ++ [l] ++ "."
-  where (f:_) = firstname
-        (l:_) = lastname
+    where (f:_) = firstname
+          (l:_) = lastname
 
 calcBmis :: [(Double, Double)] -> [Double]
 calcBmis xs = [bmi w h | (w, h) <- xs]
-  where bmi weight height = weight / height ^ 2
+    where bmi weight height = weight / height ^ 2
 
 -- 3.4 let It Be
 
 cylinder :: Double -> Double -> Double
 cylinder r h =
-  let sideArea = 2 * pi * r * h
-      topArea = pi * r ^ 2
-  in  sideArea + 2 * topArea
+    let sideArea = 2 * pi * r * h
+        topArea = pi * r ^ 2
+    in  sideArea + 2 * topArea
 
 calcBmis' :: [(Double, Double)] -> [Double]
 calcBmis' xs = [bmi | (w, h) <- xs, let bmi = w / h ^ 2]
