@@ -1,3 +1,5 @@
+-- 7.2 形づくる
+
 module Shapes
     ( Point, Shape, area, nudge, baseCircle, baseRect ) where
 
