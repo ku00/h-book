@@ -14,7 +14,11 @@ data Person = Person
     , age :: Int
     , height :: Float
     , phoneNumber :: String
-    , flavor :: String } deriving (Show)
+    , flavor :: String
+    } deriving (Show)
+
+data Car' = Car' String String Int
+    deriving (Show)
 
 data Car = Car
     { company :: String
@@ -28,7 +32,8 @@ tellCar :: Car -> String
 tellCar (Car {company = c, model = m, year = y}) =
     "This " ++ c ++ " " ++ m ++ " was made in " ++ show y
 
-data Vector a = Vector a a a deriving (Show)
+data Vector a = Vector a a a
+    deriving (Show)
 
 vplus :: (Num a) => Vector a -> Vector a -> Vector a
 (Vector i j k) `vplus` (Vector l m n) = Vector (i+l) (j+m) (k+n)
@@ -74,7 +79,8 @@ type PhoneBook = [(Name, PhoneNumber)]
 inPhoneBook :: Name -> PhoneNumber -> PhoneBook -> Bool
 inPhoneBook name pnumber pbook = (name, pnumber) `elem` pbook
 
-data LockerState = Taken | Free deriving (Show, Eq)
+data LockerState = Taken | Free
+    deriving (Show, Eq)
 type Code = String
 type LockerMap = Map.Map Int (LockerState, Code)
 
@@ -99,14 +105,16 @@ lockers = Map.fromList
 -- 7.7 再帰的なデータ構造
 
 infixr 5 :-:
-data List a = Empty | a :-: (List a) deriving (Show, Read, Eq, Ord)
+data List a = Empty | a :-: (List a)
+    deriving (Show, Read, Eq, Ord)
 
 infixr 5 ^++
 (^++) :: List a -> List a -> List a
 Empty ^++ ys = ys
 (x :-: xs) ^++ ys = x :-: (xs ^++ ys)
 
-data Tree a = EmptyTree | Node a (Tree a) (Tree a) deriving (Show)
+data Tree a = EmptyTree | Node a (Tree a) (Tree a)
+    deriving (Show)
 
 singleton :: a -> Tree a
 singleton x = Node x EmptyTree EmptyTree

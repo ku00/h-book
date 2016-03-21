@@ -1,10 +1,18 @@
 -- 7.2 形づくる
 
 module Shapes
-    ( Point, Shape, area, nudge, baseCircle, baseRect ) where
+    ( Point
+    , Shape
+    , area
+    , nudge
+    , baseCircle
+    , baseRect
+    ) where
 
-data Point = Point Float Float deriving (Show)
-data Shape = Circle Point Float | Rectangle Point Point deriving (Show)
+data Point = Point Float Float
+    deriving (Show)
+data Shape = Circle Point Float | Rectangle Point Point
+    deriving (Show)
 
 area :: Shape -> Float
 area (Circle _ r) = pi * r ^ 2
