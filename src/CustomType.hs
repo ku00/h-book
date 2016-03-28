@@ -60,6 +60,11 @@ data Day = Monday | Tuesday | Wednesday | Thursday | Friday | Saturday | Sunday
 
 -- 7.6 型シノニム
 
+type PhoneNumber = String
+type Name = String
+type PhoneBook = [(Name, PhoneNumber)]
+
+phoneBook''' :: PhoneBook
 phoneBook''' =
     [("betty", "555-2938")
     ,("betty", "342-2492")
@@ -71,10 +76,6 @@ phoneBook''' =
     ,("penny", "853-2492")
     ,("penny", "555-2111")
     ]
-
-type PhoneNumber = String
-type Name = String
-type PhoneBook = [(Name, PhoneNumber)]
 
 inPhoneBook :: Name -> PhoneNumber -> PhoneBook -> Bool
 inPhoneBook name pnumber pbook = (name, pnumber) `elem` pbook
