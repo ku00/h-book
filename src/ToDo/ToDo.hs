@@ -10,6 +10,7 @@ dispatch :: String -> [String] -> IO ()
 dispatch "add" = add
 dispatch "view" = view
 dispatch "remove" = remove
+dispatch command = doesntExist command
 
 main = do
     (command:argList) <- getArgs
@@ -17,6 +18,7 @@ main = do
 
 add :: [String] -> IO ()
 add [fileName, todoItem] = appendFile (dir ++ fileName) (todoItem ++ "\n")
+add _ = putStrLn "The add command takes exactly two arguments"
 
 view :: [String] -> IO ()
 view [fileName] = do
@@ -43,3 +45,7 @@ remove [fileName, numberString] = do
             hClose tempHandle
             removeFile (dir ++ "todo.txt")
             renameFile tempName (dir ++ "todo.txt"))
+
+doesntExist :: String -> [String] -> IO ()
+doesntExist command _ =
+    putStrLn $ "The " ++ command ++ " command doesn't exist"
