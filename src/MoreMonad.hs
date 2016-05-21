@@ -1,5 +1,6 @@
 import Data.Monoid
 import Control.Monad.Writer
+-- import Control.Monad.Instances
 
 isBigGang :: Int -> (Bool, String)
 isBigGang x = (x > 9, "Compared gang size to 9.")
@@ -88,3 +89,9 @@ finalCountDown' 0 = do
 finalCountDown' x = do
     finalCountDown' (x-1)
     tell [show x]
+
+addStuff :: Int -> Int
+addStuff = do
+    a <- (*2)
+    b <- (+10)
+    return (a+b)
