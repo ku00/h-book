@@ -1,13 +1,14 @@
 data Tree a = Empty | Node a (Tree a) (Tree a)
     deriving (Show)
-data Direction = L | R
-    deriving (Show)
+-- data Direction = L | R
+--     deriving (Show)
 data Crumb a = LeftCrumb a (Tree a) | RightCrumb a (Tree a)
     deriving (Show)
 
-type Directions = [Direction]
+-- type Directions = [Direction]
 -- type Breadcrumbs = [Direction]
 type Breadcrumbs a = [Crumb a]
+type Zipper a = (Tree a, Breadcrumbs a)
 
 x -: f = f x
 
@@ -35,15 +36,15 @@ freeTree =
             )
         )
 
-changeToP :: Directions -> Tree Char -> Tree Char
-changeToP (L:ds) (Node x l r) = Node x (changeToP ds l) r
-changeToP (R:ds) (Node x l r) = Node x l (changeToP ds r)
-changeToP [] (Node _ l r) = Node 'P' l r
-
-elemAt :: Directions -> Tree a -> a
-elemAt (L:ds) (Node _ l _) = elemAt ds l
-elemAt (R:ds) (Node _ _ r) = elemAt ds r
-elemAt [] (Node x _ _) = x
+-- changeToP :: Directions -> Tree Char -> Tree Char
+-- changeToP (L:ds) (Node x l r) = Node x (changeToP ds l) r
+-- changeToP (R:ds) (Node x l r) = Node x l (changeToP ds r)
+-- changeToP [] (Node _ l r) = Node 'P' l r
+--
+-- elemAt :: Directions -> Tree a -> a
+-- elemAt (L:ds) (Node _ l _) = elemAt ds l
+-- elemAt (R:ds) (Node _ _ r) = elemAt ds r
+-- elemAt [] (Node x _ _) = x
 
 -- goLeft :: (Tree a, Breadcrumbs) -> (Tree a, Breadcrumbs)
 -- goLeft (Node _ l _, bs) = (l, L:bs)
@@ -51,15 +52,15 @@ elemAt [] (Node x _ _) = x
 -- goRight :: (Tree a, Breadcrumbs) -> (Tree a, Breadcrumbs)
 -- goRight (Node _ _ r, bs) = (r, R:bs)
 
-goLeft :: (Tree a, Breadcrumbs a) -> (Tree a, Breadcrumbs a)
+goLeft :: Zipper a -> Zipper a
 goLeft (Node x l r, bs) = (l, LeftCrumb x r:bs)
 
-goRight :: (Tree a, Breadcrumbs a) -> (Tree a, Breadcrumbs a)
+goRight :: Zipper a -> Zipper a
 goRight (Node x l r, bs) = (r, RightCrumb x l:bs)
 
-goUp :: goLeft :: (Tree a, Breadcrumbs a) -> (Tree a, Breadcrumbs a)
+goUp :: goLeft :: Zipper a -> Zipper a
 goLeft (Node x l r, bs) = (l, LeftCrumb x r:bs)
 
-goUp :: (Tree a, Breadcrumbs a) -> (Tree a, Breadcrumbs a)
+goUp :: Zipper a -> Zipper a
 goUp (t, LeftCrumb x r:bs) = (Node x t r, bs)
 goUp (t, RightCrumb x l:bs) = (Node x l t, bs)
