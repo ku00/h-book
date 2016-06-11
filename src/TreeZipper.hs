@@ -52,15 +52,28 @@ freeTree =
 -- goRight :: (Tree a, Breadcrumbs) -> (Tree a, Breadcrumbs)
 -- goRight (Node _ _ r, bs) = (r, R:bs)
 
-goLeft :: Zipper a -> Zipper a
-goLeft (Node x l r, bs) = (l, LeftCrumb x r:bs)
+-- goLeft :: Zipper a -> Zipper a
+-- goLeft (Node x l r, bs) = (l, LeftCrumb x r:bs)
+--
+-- goRight :: Zipper a -> Zipper a
+-- goRight (Node x l r, bs) = (r, RightCrumb x l:bs)
 
-goRight :: Zipper a -> Zipper a
-goRight (Node x l r, bs) = (r, RightCrumb x l:bs)
+goLeft :: Zipper a -> Maybe (Zipper a)
+goLeft (Node x l r, bs) = Just (l, LeftCrumb x r:bs)
+goLeft (Empty, _) = Nothing
 
-goUp :: Zipper a -> Zipper a
-goUp (t, LeftCrumb x r:bs) = (Node x t r, bs)
-goUp (t, RightCrumb x l:bs) = (Node x l t, bs)
+goRight :: Zipper a -> Maybe (Zipper a)
+goRight (Node x l r, bs) = Just (r, RightCrumb x l:bs)
+goRight (Empty, _) = Nothing
+
+-- goUp :: Zipper a -> Zipper a
+-- goUp (t, LeftCrumb x r:bs) = (Node x t r, bs)
+-- goUp (t, RightCrumb x l:bs) = (Node x l t, bs)
+
+goUp :: Zipper a -> Maybe (Zipper a)
+goUp (t, LeftCrumb x r:bs) = Just (Node x t r, bs)
+goUp (t, RightCrumb x l:bs) = Just (Node x l t, bs)
+goUp (_, []) = Nothing
 
 modify :: (a -> a) -> Zipper a -> Zipper a
 modify f (Node x l r, bs) = (Node (f x) l r, bs)
