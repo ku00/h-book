@@ -58,9 +58,17 @@ goLeft (Node x l r, bs) = (l, LeftCrumb x r:bs)
 goRight :: Zipper a -> Zipper a
 goRight (Node x l r, bs) = (r, RightCrumb x l:bs)
 
-goUp :: goLeft :: Zipper a -> Zipper a
-goLeft (Node x l r, bs) = (l, LeftCrumb x r:bs)
-
 goUp :: Zipper a -> Zipper a
 goUp (t, LeftCrumb x r:bs) = (Node x t r, bs)
 goUp (t, RightCrumb x l:bs) = (Node x l t, bs)
+
+modify :: (a -> a) -> Zipper a -> Zipper a
+modify f (Node x l r, bs) = (Node (f x) l r, bs)
+modify f (Empty, bs) = (Empty, bs)
+
+attach :: Tree a -> Zipper a -> Zipper a
+attach t (_, bs) = (t, bs)
+
+topMost :: Zipper a -> Zipper a
+topMost (t, []) = (t, [])
+topMost z = topMost (goUp z)
